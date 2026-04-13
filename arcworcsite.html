@@ -446,32 +446,54 @@ footer{background:var(--black2);border-top:.5px solid var(--border);padding:44px
       <div class="c-item"><span class="c-dot"></span>Clint Coetzee · Artist Bookings Manager</div>
       <div class="c-item"><span class="c-dot"></span><a href="http://www.arcworc.com">www.arcworc.com</a></div>
     </div>
-  </div>
+  <form action="https://formspree.io/f/xlgaeorj" method="POST">
+
   <div class="reveal rd1">
+
     <div class="frow">
       <label>Artist</label>
-      <select>
+      <select name="artist" required>
         <option value="">Select artist</option>
-        <option>PA NGU</option>
-        <option>NUROGROOVE</option>
-        <option>Open to both</option>
+        <option value="PA NGU">PA NGU</option>
+        <option value="NUROGROOVE">NUROGROOVE</option>
+        <option value="Open to both">Open to both</option>
       </select>
     </div>
+
     <div class="fgrid">
-      <div class="frow"><label>Your name</label><input type="text" placeholder="Full name"/></div>
-      <div class="frow"><label>Organisation</label><input type="text" placeholder="Club, Festival or Agency"/></div>
+      <div class="frow">
+        <label>Your name</label>
+        <input type="text" name="name" placeholder="Full name" required />
+      </div>
+
+      <div class="frow">
+        <label>Organisation</label>
+        <input type="text" name="organisation" placeholder="Club, Festival or Agency" />
+      </div>
     </div>
+
     <div class="fgrid">
-      <div class="frow"><label>Email</label><input type="email" placeholder="you@example.com"/></div>
-      <div class="frow"><label>Event date</label><input type="date"/></div>
+      <div class="frow">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="you@example.com" required />
+      </div>
+
+      <div class="frow">
+        <label>Event date</label>
+        <input type="date" name="date" />
+      </div>
     </div>
+
     <div class="frow">
       <label>Event details</label>
-      <textarea placeholder="Venue, city, event type, expected capacity, and anything else we should know"></textarea>
+      <textarea name="message" placeholder="Venue, city, event type, expected capacity, and anything else we should know" required></textarea>
     </div>
-    <button class="sub-btn" onclick="handleSubmit()">Send enquiry</button>
-    <div id="thanks">We have received your enquiry. Clint will be in touch shortly.</div>
+
+    <button class="sub-btn" type="submit">Send enquiry</button>
+
   </div>
+
+</form>
 </section>
 
 <footer>

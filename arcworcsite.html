@@ -440,82 +440,100 @@ footer{background:var(--black2);border-top:.5px solid var(--border);padding:44px
     <div class="sec-tag">Bookings</div>
     <h2>Book an<br><em>artist</em></h2>
     <p>Tell us about your event and we will get back to you within 48 hours. For urgent enquiries, reach Clint directly.</p>
+
     <div class="c-stack">
       <div class="c-item"><span class="c-dot"></span><a href="mailto:clint@arcworc.com">clint@arcworc.com</a></div>
       <div class="c-item"><span class="c-dot"></span>+27 81 273 1987</div>
       <div class="c-item"><span class="c-dot"></span>Clint Coetzee · Artist Bookings Manager</div>
       <div class="c-item"><span class="c-dot"></span><a href="http://www.arcworc.com">www.arcworc.com</a></div>
-      
-  <!-- BOOKING FORM -->
-<style>
-  .frow { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-  .frow label { font-size: 13px; font-weight: 500; }
-  .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .sub-btn { width: 100%; padding: 10px; cursor: pointer; font-size: 15px; font-weight: 500; }
-  .sub-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .err-msg { font-size: 13px; color: red; margin-top: 8px; display: none; }
-  .success-msg { display: none; text-align: center; padding: 2rem 1rem; }
-  @media (max-width: 480px) { .fgrid { grid-template-columns: 1fr; } }
-</style>
+    </div> <!-- ✅ CLOSED c-stack -->
 
-<div id="form-area">
-  <div class="frow">
-    <label for="artist">Artist</label>
-    <select id="artist" name="artist" required>
-      <option value="">Select artist</option>
-      <option value="PA NGU">PA NGU</option>
-      <option value="NUROGROOVE">NUROGROOVE</option>
-      <option value="Open to both">Open to both</option>
-    </select>
-  </div>
-  <div class="fgrid">
-    <div class="frow">
-      <label for="name">Your name</label>
-      <input type="text" id="name" required />
-    </div>
-    <div class="frow">
-      <label for="organisation">Organisation</label>
-      <input type="text" id="organisation" />
-    </div>
-  </div>
-  <div class="fgrid">
-    <div class="frow">
-      <label for="email">Email</label>
-      <input type="email" id="email" required />
-    </div>
-    <div class="frow">
-      <label for="date">Event date</label>
-      <input type="date" id="date" />
-    </div>
-  </div>
-  <div class="frow">
-    <label for="message">Event details</label>
-    <textarea id="message" required rows="4"></textarea>
-  </div>
-  <button class="sub-btn" id="submit-btn" onclick="submitForm()">Send enquiry</button>
-  <p class="err-msg" id="err-msg">Something went wrong. Please try again.</p>
-</div>
+    <!-- BOOKING FORM -->
+    <style>
+      .frow { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+      .frow label { font-size: 13px; font-weight: 500; }
+      .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .sub-btn { width: 100%; padding: 10px; cursor: pointer; font-size: 15px; font-weight: 500; }
+      .sub-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      .err-msg { font-size: 13px; color: red; margin-top: 8px; display: none; }
+      .success-msg { display: none; text-align: center; padding: 2rem 1rem; }
+      @media (max-width: 480px) { .fgrid { grid-template-columns: 1fr; } }
+    </style>
 
-<div class="success-msg" id="success-area">
-  <p>✓ Enquiry sent — we'll be in touch soon!</p>
-</div>
+    <div id="form-area">
+      <div class="frow">
+        <label for="artist">Artist</label>
+        <select id="artist" required>
+          <option value="">Select artist</option>
+          <option value="PA NGU">PA NGU</option>
+          <option value="NUROGROOVE">NUROGROOVE</option>
+          <option value="Open to both">Open to both</option>
+        </select>
+      </div>
+
+      <div class="fgrid">
+        <div class="frow">
+          <label for="name">Your name</label>
+          <input type="text" id="name" required />
+        </div>
+        <div class="frow">
+          <label for="organisation">Organisation</label>
+          <input type="text" id="organisation" />
+        </div>
+      </div>
+
+      <div class="fgrid">
+        <div class="frow">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="frow">
+          <label for="date">Event date</label>
+          <input type="date" id="date" />
+        </div>
+      </div>
+
+      <div class="frow">
+        <label for="message">Event details</label>
+        <textarea id="message" required rows="4"></textarea>
+      </div>
+
+      <button class="sub-btn" id="submit-btn" onclick="submitForm()">Send enquiry</button>
+      <p class="err-msg" id="err-msg">Something went wrong. Please try again.</p>
+    </div>
+
+    <div class="success-msg" id="success-area">
+      <p>✓ Enquiry sent — we’ll be in touch soon!</p>
+    </div>
+
+  </div>
+</section>
 
 <script>
 async function submitForm() {
-  const fields = ['artist','name','email','message'];
-  for (const id of fields) {
-    const el = document.getElementById(id);
-    if (el.required && !el.value.trim()) { el.focus(); return; }
-  }
   const btn = document.getElementById('submit-btn');
+  if (btn.disabled) return; // prevent double click
+
+  const requiredFields = ['artist','name','email','message'];
+  for (const id of requiredFields) {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.focus();
+      return;
+    }
+  }
+
   btn.disabled = true;
-  btn.textContent = 'Sending…';
+  btn.textContent = 'Sending...';
   document.getElementById('err-msg').style.display = 'none';
 
   try {
     const res = await fetch('https://formspree.io/f/xlgaeorj', {
       method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         artist: document.getElementById('artist').value,
         name: document.getElementById('name').value,
@@ -523,14 +541,18 @@ async function submitForm() {
         _replyto: document.getElementById('email').value,
         organisation: document.getElementById('organisation').value,
         date: document.getElementById('date').value,
-        message: document.getElementById('message').value,
+        message: document.getElementById('message').value
       })
     });
+
     if (res.ok) {
       document.getElementById('form-area').style.display = 'none';
       document.getElementById('success-area').style.display = 'block';
-    } else { throw new Error(); }
-  } catch {
+    } else {
+      throw new Error();
+    }
+
+  } catch (err) {
     document.getElementById('err-msg').style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Send enquiry';

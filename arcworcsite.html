@@ -449,116 +449,52 @@ footer{background:var(--black2);border-top:.5px solid var(--border);padding:44px
     </div> <!-- ✅ CLOSED c-stack -->
 
     <!-- BOOKING FORM -->
-    <style>
-      .frow { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-      .frow label { font-size: 13px; font-weight: 500; }
-      .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-      .sub-btn { width: 100%; padding: 10px; cursor: pointer; font-size: 15px; font-weight: 500; }
-      .sub-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-      .err-msg { font-size: 13px; color: red; margin-top: 8px; display: none; }
-      .success-msg { display: none; text-align: center; padding: 2rem 1rem; }
-      @media (max-width: 480px) { .fgrid { grid-template-columns: 1fr; } }
-    </style>
+ <form action="https://formspree.io/f/xlgaeorj" method="POST">
 
-    <div id="form-area">
-      <div class="frow">
-        <label for="artist">Artist</label>
-        <select id="artist" required>
-          <option value="">Select artist</option>
-          <option value="PA NGU">PA NGU</option>
-          <option value="NUROGROOVE">NUROGROOVE</option>
-          <option value="Open to both">Open to both</option>
-        </select>
-      </div>
-
-      <div class="fgrid">
-        <div class="frow">
-          <label for="name">Your name</label>
-          <input type="text" id="name" required />
-        </div>
-        <div class="frow">
-          <label for="organisation">Organisation</label>
-          <input type="text" id="organisation" />
-        </div>
-      </div>
-
-      <div class="fgrid">
-        <div class="frow">
-          <label for="email">Email</label>
-          <input type="email" id="email" required />
-        </div>
-        <div class="frow">
-          <label for="date">Event date</label>
-          <input type="date" id="date" />
-        </div>
-      </div>
-
-      <div class="frow">
-        <label for="message">Event details</label>
-        <textarea id="message" required rows="4"></textarea>
-      </div>
-
-      <button class="sub-btn" id="submit-btn" onclick="submitForm()">Send enquiry</button>
-      <p class="err-msg" id="err-msg">Something went wrong. Please try again.</p>
-    </div>
-
-    <div class="success-msg" id="success-area">
-      <p>✓ Enquiry sent — we’ll be in touch soon!</p>
-    </div>
-
+  <div class="frow">
+    <label>Artist</label>
+    <select name="artist" required>
+      <option value="">Select artist</option>
+      <option>PA NGU</option>
+      <option>NUROGROOVE</option>
+      <option>Open to both</option>
+    </select>
   </div>
-</section>
 
-<script>
-async function submitForm() {
-  const btn = document.getElementById('submit-btn');
-  if (btn.disabled) return; // prevent double click
+  <div class="fgrid">
+    <div class="frow">
+      <label>Your name</label>
+      <input type="text" name="name" required>
+    </div>
+    <div class="frow">
+      <label>Organisation</label>
+      <input type="text" name="organisation">
+    </div>
+  </div>
 
-  const requiredFields = ['artist','name','email','message'];
-  for (const id of requiredFields) {
-    const el = document.getElementById(id);
-    if (!el.value.trim()) {
-      el.focus();
-      return;
-    }
-  }
+  <div class="fgrid">
+    <div class="frow">
+      <label>Email</label>
+      <input type="email" name="email" required>
+    </div>
+    <div class="frow">
+      <label>Event date</label>
+      <input type="date" name="date">
+    </div>
+  </div>
 
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
-  document.getElementById('err-msg').style.display = 'none';
+  <div class="frow">
+    <label>Event details</label>
+    <textarea name="message" rows="4" required></textarea>
+  </div>
 
-  try {
-    const res = await fetch('https://formspree.io/f/xlgaeorj', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        artist: document.getElementById('artist').value,
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        _replyto: document.getElementById('email').value,
-        organisation: document.getElementById('organisation').value,
-        date: document.getElementById('date').value,
-        message: document.getElementById('message').value
-      })
-    });
+  <!-- optional but useful -->
+  <input type="hidden" name="_subject" value="New ARCWORC Booking Request">
+  <input type="hidden" name="_captcha" value="false">
 
-    if (res.ok) {
-      document.getElementById('form-area').style.display = 'none';
-      document.getElementById('success-area').style.display = 'block';
-    } else {
-      throw new Error();
-    }
+  <button type="submit" class="sub-btn">Send enquiry</button>
 
-  } catch (err) {
-    document.getElementById('err-msg').style.display = 'block';
-    btn.disabled = false;
-    btn.textContent = 'Send enquiry';
-  }
-}
-</script>
+</form>
 <footer>
   <div class="footer-top">
     <div class="footer-logo">

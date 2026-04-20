@@ -434,6 +434,7 @@ footer{background:var(--black2);border-top:.5px solid var(--border);padding:44px
   </div>
 </div>
 
+  </body>
 <!-- BOOKING -->
 <section class="booking" id="booking">
   <div class="bk-l reveal">
@@ -492,7 +493,7 @@ footer{background:var(--black2);border-top:.5px solid var(--border);padding:44px
     <label for="message">Event details</label>
     <textarea id="message" required rows="4"></textarea>
   </div>
-  <button class="sub-btn" id="submit-btn" onclick="submitForm()">Send enquiry</button>
+  <button type="button" id="submit-btn">Send enquiry</button>
   <p class="err-msg" id="err-msg">Something went wrong. Please try again.</p>
 </div>
 
@@ -536,6 +537,7 @@ async function submitForm() {
     btn.textContent = 'Send enquiry';
   }
 }
+  document.getElementById('submit-btn').addEventListener('click', submitForm);
 </script>
 <footer>
   <div class="footer-top">
